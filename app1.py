@@ -1,23 +1,35 @@
-# program to reverse a string using stack
-def pop(l):
-    if l != []: return l.pop()
-    else: return False
+# Infix to postfix
 
-def push(l, ch):
-    l.append(ch)
+alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# numbers = "0123456789"
 
-def reverseString(s): 
-    stack = list() # empty stack
-    for ch in s:
-        push(stack, ch)
+open_b = "("
+close_b = ")"
+operations = "+-*/"
+stack = []
+z = ""
+x = "(( A + B ) + C)"
 
-    reverse = ""
-    while True:
-        ch = pop(stack)
-        if ch != False: reverse += ch
-        else: break
-    
-    return reverse
+def postfix(stack, z, x):
+    for i in range(len(x)):
+        if x[i] == "(":
+            stack.append(x[i])
+            continue
+        elif x[i] in [*alphabets]:
+            z += x[i]
+        elif x[i] in [*operations]:
+            stack.append(x[i])
+        elif x[i]  == ")":
+            print(stack)
+            while True:
+                w = str(stack.pop())
+                if w != "(":
+                    z += w 
+                else: break
+        else: 
+            continue
+    print(z)
+    print(stack)
 
-string = input("Enter your string: ")
-print("Reverse string: ", reverseString(string))
+postfix(stack, z, x)
+
